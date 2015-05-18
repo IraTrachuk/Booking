@@ -30,4 +30,17 @@ public class Booking {
         System.out.println(TestHelper.getChromeDriver().getTitle());
         functions.sleepTime(2000);
     }
+
+    @Test
+    public void smoke(){
+        functions.selectCity(functions.getFrom(), functions.getCity1());
+        functions.selectCity(functions.getTo(), functions.getCity2());
+        functions.sleepTime(3000);
+        functions.selectDate(functions.getDate_dep());
+        functions.click(functions.getSearch());
+        functions.sleepTime(3000);
+        functions.click(functions.getCoupe());
+
+
+    }
 }
