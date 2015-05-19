@@ -20,6 +20,12 @@ public class BookingPageObject {
     private String city1 = "Киев";
     private String city2 = "Ивано-Франковск";
     private String Coupe = ".//*[@id='ts_res_tbl']/tbody/tr[1]/td[6]/div[2]/button";
+    private String place = ".//*[@id='places']/p[7]/a[3]/span";
+    private String LastName = ".//*[@id='ts_chs_tbl']/table/tbody/tr/td[3]/div[4]/label[1]/input";
+    private String FirstName = ".//*[@id='ts_chs_tbl']/table/tbody/tr/td[3]/div[4]/label[2]/input";
+    private String price = ".//*[@id='ts_chs_tbl']/table/tbody/tr/td[5]";
+    private String Name1 = "Трачук";
+    private String Name2 = "Ира";
 
     public String getMainLink() {
         return mainLink;
@@ -55,6 +61,30 @@ public class BookingPageObject {
 
     public String getCoupe() {
         return Coupe;
+    }
+
+    public String getPlace() {
+        return place;
+    }
+
+    public String getFirstName() {
+        return FirstName;
+    }
+
+    public String getLastName() {
+        return LastName;
+    }
+
+    public String getPrice() {
+        return price;
+    }
+
+    public String getName1() {
+        return Name1;
+    }
+
+    public String getName2() {
+        return Name2;
     }
 
     public static void openPage(String xpath){
@@ -103,6 +133,15 @@ public class BookingPageObject {
     public void click(String xpath){
         getElement(xpath).click();
         sleepTime(6000);
+    }
+
+    public void fillField(String xpath, String name){
+        getElement(xpath).sendKeys(name);
+        sleepTime(2000);
+    }
+
+    public String checkPrice(String xpath){
+        return getElement(xpath).getText();
     }
 
 

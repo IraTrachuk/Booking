@@ -5,6 +5,7 @@ import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.junit.runners.JUnit4;
+import org.testng.Assert;
 
 /**
  * Created by Admin on 18.05.15.
@@ -32,15 +33,19 @@ public class Booking {
     }
 
     @Test
-    public void smoke(){
+    public void buyTicket(){
         functions.selectCity(functions.getFrom(), functions.getCity1());
-        functions.selectCity(functions.getTo(), functions.getCity2());
+        functions.selectCity(functions.getTo(), functions.getCity2()); // ???????? ?? ??? ?????
         functions.sleepTime(3000);
         functions.selectDate(functions.getDate_dep());
         functions.click(functions.getSearch());
         functions.sleepTime(3000);
         functions.click(functions.getCoupe());
-
-
+        functions.click(functions.getPlace());
+        functions.fillField(functions.getLastName(), functions.getName1());
+        functions.fillField(functions.getFirstName(), functions.getName2());
+        Assert.assertEquals(212.7, Float.parseFloat(functions.getPrice())); //????? ????????? ? ?????????? ??????
     }
 }
+
+//????? ?????, ????????????? ????? ? ????? ? ????????? ? ?????????? ??? ????.
