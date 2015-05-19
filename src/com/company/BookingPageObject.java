@@ -19,10 +19,11 @@ public class BookingPageObject {
     private String date_dep = ".//table[@class='grid']//table[@class='month']/caption[contains(text(), '"; ////table[@class='grid']//table[@class='month']/caption[contains(text(), 'Июнь 2015')]" + "/following::td[contains(text(), '25')][1]
     private String search = "//button[@name = 'search']";
     private String city1 = "Киев";
-    private String city2 = "Ивано-Франковск";
+    private String city2 = "Одесса";
     private String trainNumber = "//a[contains(text(), '";//"//a[contains(text(), '043 К')]/following::div[@title='Купе'][1]/button"
     private String carNum = "//a[@href = '#"; //a[@href = '#5']
-
+    private String placenumber = "//*[@id='places']//a[@title = '";
+    private String price = "//td[@class='price']";
 
 
     public String getMainLink() {
@@ -65,6 +66,14 @@ public class BookingPageObject {
         return carNum;
     }
 
+    public String getPlacenumber() {
+        return placenumber;
+    }
+
+    public String getPrice() {
+        return price;
+    }
+
     public static void openPage(String xpath){
         TestHelper.getChromeDriver().get(xpath);
     }
@@ -103,8 +112,7 @@ public class BookingPageObject {
     }
 
     public String getDepDate(String month, String day){
-        //return date_dep + month + "')]//following::td[contains(text(), '" + day + "')][1]";
-        return date_dep + month + "')]//following::td[contains (text(), '" + day + "')][1]";
+        return getDate_dep() + month + "')]//following::td[contains (text(), '" + day + "')][1]";
     }
 
     public void selectDate(String xpath){
@@ -115,7 +123,7 @@ public class BookingPageObject {
     }
 
     public String getTrain(String number, String carType){
-        return trainNumber + number + "')]//following::div[@title='" + carType + "'][1]/button";
+        return getTrainNumber() + number + "')]//following::div[@title='" + carType + "'][1]/button";
     }
 
     public void click(String xpath){
@@ -123,22 +131,11 @@ public class BookingPageObject {
         sleepTime(4000);
     }
 
-    public void IsCarAvailable(String carNumber, String placeNumber){
+    public void IsPlaceAvailable(String carNumber, String placeNumber){
         Assert.assertTrue(getElement(getCarNum() + carNumber + "']").isDisplayed());
         click(getCarNum() + carNumber + "']");
-        //номер места
-
+        Assert.assertTrue((getElement(getPlacenumber() + placeNumber + "']").getAttribute("class")).contains("free"));
+        click(getPlacenumber() + placeNumber + "']");
     }
-
-    /*
-    public void fillField(String xpath, String name){
-        getElement(xpath).sendKeys(name);
-        sleepTime(2000);
-    }
-
-    public String checkPrice(String xpath){
-        return getElement(xpath).getText();
-    }
-    */
 
 }

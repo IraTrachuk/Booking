@@ -17,8 +17,10 @@ public class Booking {
 
     private String month = "Июнь 2015";
     private String day = "25";
-    private String trainNumber = "043 К";
+    private String trainNumber = "105 К";
     private String car = "Купе";
+    private String carNumber = "6";
+    private String place = "Место: 28";
 
     public String getMonth() {
         return month;
@@ -34,6 +36,14 @@ public class Booking {
 
     public String getTrainNumber() {
         return trainNumber;
+    }
+
+    public String getCarNumber() {
+        return carNumber;
+    }
+
+    public String getPlace() {
+        return place;
     }
 
     @Before
@@ -55,7 +65,6 @@ public class Booking {
 
     @Test
     public void butTicket2(){
-        //вбить города; выбрать дату, передав значения дня и месяца; поиск; выбрать купе поезда, передав номер поезда и тип вагона; выбрать место, передав номер места.
         functions.selectCity(functions.getFrom(), functions.getCity1());
         functions.selectCity(functions.getTo(), functions.getCity2());
         functions.sleepTime(3000);
@@ -63,7 +72,15 @@ public class Booking {
         functions.click(functions.getSearch());
         functions.sleepTime(3000);
         functions.click(functions.getTrain(getTrainNumber(), getCar()));
-
+        functions.IsPlaceAvailable(getCarNumber(), getPlace());
+        /*float x = Float.parseFloat(functions.getElement(functions.getPrice()).getText().replaceAll("[*]", ""));
+        if (x < 250.0) {
+            System.out.println("Ticket bought");
+        }
+        else {
+            System.out.println("Too expensive");
+        }
+        */
     }
 }
 
