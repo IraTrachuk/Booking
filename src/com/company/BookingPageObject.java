@@ -1,5 +1,6 @@
 package com.company;
 
+import org.junit.Assert;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
@@ -15,17 +16,14 @@ public class BookingPageObject {
     private String from = "//input[@name = 'station_from']";
     private String to = "//input[@name = 'station_till']";
     private String date = "//input[@id = 'date_dep']";
-    private String date_dep = "html/body/div[2]/div/table/tbody/tr/td[2]/table/tbody/tr[3]/td[6]";
+    private String date_dep = ".//table[@class='grid']//table[@class='month']/caption[contains(text(), '"; ////table[@class='grid']//table[@class='month']/caption[contains(text(), 'Июнь 2015')]" + "/following::td[contains(text(), '25')][1]
     private String search = "//button[@name = 'search']";
     private String city1 = "Киев";
     private String city2 = "Ивано-Франковск";
-    private String Coupe = ".//*[@id='ts_res_tbl']/tbody/tr[1]/td[6]/div[2]/button";
-    private String place = ".//*[@id='places']/p[7]/a[3]/span";
-    private String LastName = ".//*[@id='ts_chs_tbl']/table/tbody/tr/td[3]/div[4]/label[1]/input";
-    private String FirstName = ".//*[@id='ts_chs_tbl']/table/tbody/tr/td[3]/div[4]/label[2]/input";
-    private String price = ".//*[@id='ts_chs_tbl']/table/tbody/tr/td[5]";
-    private String Name1 = "Трачук";
-    private String Name2 = "Ира";
+    private String trainNumber = "//a[contains(text(), '";//"//a[contains(text(), '043 К')]/following::div[@title='Купе'][1]/button"
+    private String carNum = "//a[@href = '#"; //a[@href = '#5']
+
+
 
     public String getMainLink() {
         return mainLink;
@@ -59,32 +57,12 @@ public class BookingPageObject {
         return city2;
     }
 
-    public String getCoupe() {
-        return Coupe;
+    public String getTrainNumber() {
+        return trainNumber;
     }
 
-    public String getPlace() {
-        return place;
-    }
-
-    public String getFirstName() {
-        return FirstName;
-    }
-
-    public String getLastName() {
-        return LastName;
-    }
-
-    public String getPrice() {
-        return price;
-    }
-
-    public String getName1() {
-        return Name1;
-    }
-
-    public String getName2() {
-        return Name2;
+    public String getCarNum() {
+        return carNum;
     }
 
     public static void openPage(String xpath){
@@ -124,17 +102,35 @@ public class BookingPageObject {
 
     }
 
+    public String getDepDate(String month, String day){
+        //return date_dep + month + "')]//following::td[contains(text(), '" + day + "')][1]";
+        return date_dep + month + "')]//following::td[contains (text(), '" + day + "')][1]";
+    }
+
     public void selectDate(String xpath){
         getElement(getDate()).click();
         sleepTime(2000);
         getElement(xpath).click();
+        sleepTime(2000);
+    }
+
+    public String getTrain(String number, String carType){
+        return trainNumber + number + "')]//following::div[@title='" + carType + "'][1]/button";
     }
 
     public void click(String xpath){
         getElement(xpath).click();
-        sleepTime(6000);
+        sleepTime(4000);
     }
 
+    public void IsCarAvailable(String carNumber, String placeNumber){
+        Assert.assertTrue(getElement(getCarNum() + carNumber + "']").isDisplayed());
+        click(getCarNum() + carNumber + "']");
+        //номер места
+
+    }
+
+    /*
     public void fillField(String xpath, String name){
         getElement(xpath).sendKeys(name);
         sleepTime(2000);
@@ -143,6 +139,6 @@ public class BookingPageObject {
     public String checkPrice(String xpath){
         return getElement(xpath).getText();
     }
-
+    */
 
 }

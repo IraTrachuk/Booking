@@ -15,6 +15,27 @@ public class Booking {
 
     BookingPageObject functions = new BookingPageObject();
 
+    private String month = "Июнь 2015";
+    private String day = "25";
+    private String trainNumber = "043 К";
+    private String car = "Купе";
+
+    public String getMonth() {
+        return month;
+    }
+
+    public String getDay() {
+        return day;
+    }
+
+    public String getCar() {
+        return car;
+    }
+
+    public String getTrainNumber() {
+        return trainNumber;
+    }
+
     @Before
     public void init(){
         TestHelper.init();
@@ -33,19 +54,17 @@ public class Booking {
     }
 
     @Test
-    public void buyTicket(){
+    public void butTicket2(){
+        //вбить города; выбрать дату, передав значения дня и месяца; поиск; выбрать купе поезда, передав номер поезда и тип вагона; выбрать место, передав номер места.
         functions.selectCity(functions.getFrom(), functions.getCity1());
-        functions.selectCity(functions.getTo(), functions.getCity2()); // ???????? ?? ??? ?????
+        functions.selectCity(functions.getTo(), functions.getCity2());
         functions.sleepTime(3000);
-        functions.selectDate(functions.getDate_dep());
+        functions.selectDate(functions.getDepDate(getMonth(), getDay()));
         functions.click(functions.getSearch());
         functions.sleepTime(3000);
-        functions.click(functions.getCoupe());
-        functions.click(functions.getPlace());
-        functions.fillField(functions.getLastName(), functions.getName1());
-        functions.fillField(functions.getFirstName(), functions.getName2());
-        Assert.assertEquals(212.7, Float.parseFloat(functions.getPrice())); //????? ????????? ? ?????????? ??????
+        functions.click(functions.getTrain(getTrainNumber(), getCar()));
+
     }
 }
 
-//????? ?????, ????????????? ????? ? ????? ? ????????? ? ?????????? ??? ????.
+
